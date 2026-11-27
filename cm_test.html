@@ -1,423 +1,486 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>cm test</title>
-		<style>
-			:root {
-				--pink: #e07777;
-				--border: #f0d6d6;
-				--bg: #f5f5f5;
-				--light-text: #625555;
-			}
-			html {
-				scroll-behavior: smooth;
-			}
-			body {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
-				color: #202124;
-				background-color: var(--bg);
-				margin: 0;
-				padding: 0;
-			}
-			header {
-				display: block;
-				position: fixed;
-				top: 0;
-				width: 100%;
-				height: 5em;
-				background-color: var(--bg);
-				border-bottom: 2px solid var(--border);
-				box-sizing: border-box;
-				z-index: 300;
-			}
-			.hamburger {
-				display: none;
-				/* flex: 1; */
-				/* position: fixed; */
-				/* z-index: 1; */
-				overflow: hidden;
-			}
-			main {
-				/* max-width: 1200px; */
-				display: grid;
-				grid-template-columns: 0.6fr 2fr;
-				gap: 15px;
-				margin-top: 5.5em;
-				margin-left: 5dvw;
-				margin-right: 5dvw;
-				padding: 8px 20px;
-				top: 5em;
-				/* overflow-wrap: break-word; */
-			}
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>cm test</title>
+	<style>
+		:root {
+			--pink: #e07777;
+			--border: #f0d6d6;
+			--bg: #f5f5f5;
+			--light-text: #625555;
+		}
+		html {
+			scroll-behavior: smooth;
+		}
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+			color: #202124;
+			background-color: var(--bg);
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			display: block;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			height: 5em;
+			background-color: var(--bg);
+			border-bottom: 2px solid var(--border);
+			box-sizing: border-box;
+			z-index: 300;
+		}
+		.hamburger {
+			display: none;
+			/* flex: 1; */
+			/* position: fixed; */
+			/* z-index: 1; */
+			overflow: hidden;
+		}
+		main {
+			/* max-width: 1200px; */
+			display: grid;
+			grid-template-columns: 0.6fr 2fr;
+			gap: 15px;
+			margin-top: 5.5em;
+			margin-left: 5dvw;
+			margin-right: 10dvw;
+			padding: 8px 20px;
+			top: 5em;
+			box-sizing: border-box;
+			/* overflow-wrap: break-word; */
+		}
+		aside {
+			display: block;
+			height: calc(100vh - 9rem);
+			top: 6rem;
+			width: 160px;
+			position: sticky;
+			z-index: 100;
+			background-color: #f5e6e6;
+			padding: 8px 0;
+			margin: 10px;
+			border-radius: 5px;
+			overflow-x: hidden;
+		}
+		aside ul {
+			list-style-type: none;
+			padding-inline-start: 20px;
+		}
+		aside a {
+			padding: 6px;
+			/* margin-left: 12px; */
+			margin-right: 12px;
+			border-radius: 5px;
+			display: block;
+			text-decoration: none;
+			text-align: left;
+			color: var(--light-text);
+			transition: 0.5s;
+		}
+		aside a:hover {
+			color: black;
+			background-color: #efd9d9;
+			transition: 0.5s;
+		}
+		.closebtn {
+			display: none;
+		}
+		.main-page {
+			display: block;
+			grid-column-start: 2;
+			z-index: 1;
+		}
+		h1 {
+			color: var(--pink);
+			/* border-bottom: 2px solid #f0d6d6; */
+			/* padding-top: 10px; */
+			/* margin: 1em; */
+			margin-left: 5dvw;
+			padding: 0 1em;
+			top: 0;
+			z-index: 100;
+		}
+		h2 {
+			color: #382526;
+			padding-left: 10px;
+			margin-bottom: 0.5rem;
+			border-left: 5px solid var(--pink);
+			border-radius: 5px;
+			scroll-margin-top: 4.5em;
+		}
+		h3 {
+			color: var(--pink);
+			padding-left: 10px;
+			margin-bottom: 0.5rem;
+			scroll-margin-top: 4.5em;
+		}
+		p {
+			padding: 10px 12px;
+			margin: 0;
+		}
+		.mark-div {
+			padding-left: 10px;
+		}
+		.mark {
+      		display: inline-block;
+			line-height: 1.5em;
+			background-color: #eeeeee;
+			color: var(--pink);
+			border-radius: 8px;
+			margin-right: 5px;
+			padding: 3px 5px;
+			font-size: 0.8em;
+		}
+		.info ul {
+			padding-left: 20px;
+			margin-top: 0;
+		}
+		.info li::marker {
+			color: var(--pink);
+		}
+		.opt-info {
+			/* display: grid;
+			grid-template-columns: 1fr 2fr; */
+			margin-top: 25px;
+		}
+		.code-div {
+			background-color: #f3f3f3;
+			border-radius: 5px;
+			border: 1px solid var(--border);
+			margin: 10px 12px;
+			position: relative;
+		}
+		.code-div pre {
+			padding: 7px;
+			margin: 0;
+			position: relative;
+			width: inherit;
+			white-space-collapse: collapse;
+			text-wrap-mode: nowrap;
+		}
+		code {
+			color: var(--light-text);
+			text-wrap-mode: nowrap;
+			white-space-collapse: preserve-breaks;
+			word-break: break-all;
+			line-height: 1.5em;
+		}
+		.copy-btn {
+			display: block;
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			font-size: 0.5em;
+			z-index: 30;
+			border-radius: 5px;
+			background-color: var(--pink);
+			border: 0;
+			padding: 4px 6px;
+			cursor: pointer;
+			color: var(--bg);
+		}
+		.copy-btn:hover {
+			background-color: #ab565a;
+		}
+		.quote {
+			display: block;
+			margin: 10px 12px;
+			padding: 10px 12px;
+			color: var(--light-text);
+			/* background-color: #efd9d9; */
+			border-left: 5px solid var(--border);
+		}
+		.sample-img {
+			display: block;
+			text-align: center;
+			/* margin-left: auto;
+			margin-right: auto;
+			margin-top: auto;
+			width: 50%; */
+		}
+		.sample-img ul {
+			display: flex;
+			gap: 2vw;
+			overflow-x: scroll;
+  			scroll-snap-type: x mandatory;
+			anchor-name: --img-carousel;
+		}
+		.sample-img ul::scroll-button(*) {
+			border: 0;
+			background: none;
+			color: var(--pink);
+			opacity: 0.6;
+			cursor: pointer;
+			position: absolute;
+			position-anchor: --img-carousel;
+		}
+		.sample-img ul::scroll-button(*):hover,
+		.sample-img ul::scroll-button(*):focus {
+			opacity: 1;
+		}
+		.sample-img ul::scroll-button(*):disabled {
+			opacity: 0.3;
+			cursor: unset;
+		}
+		.sample-img ul::scroll-button(left) {
+			content: "◄" / "Previous";
+			right: calc(anchor(left) - 70px);
+  			bottom: calc(anchor(top) + 13px);
+		}
+		.sample-img ul::scroll-button(right) {
+			content: "►" / "Next";
+			left: calc(anchor(right) - 70px);
+  			bottom: calc(anchor(top) + 13px);
+		}
+		.sample-img li {
+			list-style-type: none;
+			border: 2px solid #e07777;
+			flex: 0 0 100%;
+			scroll-snap-align: center;
+		}
+		img {
+			max-width: 100%; 
+			height: auto; 
+			border: 3px solid black;
+			border-radius: 5px;
+			padding: 1rem;
+		}
+		footer {
+			border-top: 2px solid var(--border);
+			padding: 10px;
+			padding-left: calc(5dvw + 20px);
+			color: var(--light-text);
+			font-size: 0.9rem;
+		}
+		footer a {
+			text-decoration: none;
+			color: var(--pink);
+		}
+		footer a:hover {
+			color: #ab565a;
+		}
+		.footer {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+		}
+		dt {
+			font-weight: bold;
+		}
+		dd {
+			margin-left: 20px;
+			margin-top: 5px;
+		}
+		.feedback {
+			margin-top: 16px;
+		}
+		.feedback p {
+			padding-top: 0;
+		}
+		@media (max-width: 768px) {
 			aside {
-				display: block;
-				height: calc(100vh - 9rem);
 				top: 6rem;
-				width: 160px;
-				position: sticky;
-				z-index: 100;
-				background-color: #f5e6e6;
-				padding: 8px 0;
-				margin: 10px;
-				border-radius: 5px;
-				overflow-x: hidden;
+				left: 0;
+				width: 60%;
+				/* max-width: 320px; */
+				height: 80dvh;
+				/* padding: 60px 20px 20px; */
+				background: var(--bg);
+				transform: translateX(-110%);
+				transition: transform 0.3s ease;
+				z-index: 300;
+				border-radius: 8px;
+				box-shadow: 2px 0 10px rgba(0,0,0,0.2);
 			}
-			aside ul {
-				list-style-type: none;
-				padding-inline-start: 20px;
-			}
-			aside a {
-				padding: 6px;
-				/* margin-left: 12px; */
-				margin-right: 12px;
-				border-radius: 5px;
-				display: block;
-				text-decoration: none;
-				text-align: left;
-				color: var(--light-text);
-				transition: 0.5s;
-			}
-			aside a:hover {
-				color: black;
-				background-color: #efd9d9;
-				transition: 0.5s;
+			aside.active {
+				transform: translateX(0);
+				transition: transform 0.3s ease;
 			}
 			.closebtn {
-				display: none;
-			}
-			.main-page {
-				display: block;
-				grid-column-start: 2;
-				z-index: 1;
-			}
-			h1 {
-				color: var(--pink);
-				/* border-bottom: 2px solid #f0d6d6; */
-				/* padding-top: 10px; */
-				/* margin: 1em; */
-				margin-left: 5dvw;
-				padding: 0 1em;
-				top: 0;
-				z-index: 100;
-			}
-			h2 {
-				color: #382526;
-				padding-left: 10px;
-				margin-bottom: 0.5rem;
-				border-left: 5px solid var(--pink);
-				border-radius: 5px;
-				scroll-margin-top: 4.5em;
-			}
-			h3 {
-				color: var(--pink);
-				padding-left: 10px;
-				margin-bottom: 0.5rem;
-				scroll-margin-top: 4.5em;
-			}
-			p {
-				padding: 10px 12px;
-				margin: 0;
-			}
-			.info ul {
-				padding-left: 20px;
-				margin-top: 0;
-			}
-			.info li::marker {
-				color: var(--pink);
-			}
-			.opt-info {
-				display: grid;
-				grid-template-columns: 1fr 2fr;
-				margin-top: 25px;
-			}
-			.code {
-				background-color: #f3f3f3;
-				border-radius: 5px;
-				border: 1px solid var(--border);
-				margin: 10px 12px;
-				position: relative;
-			}
-			.code pre {
-				padding: 7px;
-				position: relative;
-				width: inherit;
-				white-space-collapse: preserve;
-				text-wrap-mode: nowrap;
-			}
-			code {
-				color: var(--light-text);
-				text-wrap-mode: wrap;
-				white-space-collapse: break-spaces;
-				word-break: break-all;
-			}
-			.copy-btn {
 				display: block;
 				position: absolute;
-				top: 5px;
-				right: 5px;
-				font-size: 0.5em;
-				z-index: 30;
-				border-radius: 5px;
-				background-color: var(--pink);
-				border: 0;
-				padding: 4px 6px;
-				cursor: pointer;
-				color: var(--bg);
-			}
-			.copy-btn:hover {
-				background-color: #ab565a;
-			}
-			.quote {
-				display: block;
-				margin: 10px 12px;
-				padding: 10px 12px;
+				top: 10px;
+				right: 15px;
+				font-size: 1.5em;
 				color: var(--light-text);
-				/* background-color: #efd9d9; */
-				border-left: 5px solid var(--border);
+				border: none;
+				background: none;
+				cursor: pointer;
 			}
-			.sample-img {
+			main {
 				display: block;
-				text-align: center;
-				/* margin-left: auto;
-				margin-right: auto;
-				margin-top: auto;
-				width: 50%; */
+				margin-left: 0;
+				margin-right: 0;
 			}
-			img {
-				max-width: 100%; 
-				height: auto; 
-				border: 3px solid black;
-				border-radius: 5px;
-				padding: 1rem;
+			body.sidebar-open .main-page {
+				filter: blur(4px);
+				pointer-events: none;
+				z-index: auto;
+			}
+			.opt-info {
+				display: block;
+			}
+			header {	
+				display: flex;
+				flex-direction: row;
+				gap: 10px;
+			}
+			.hamburger {
+				display: flex;
+				height: auto;
+				margin-top: auto;
+				margin-bottom: auto;
+				margin-left: 0.5em;
+				/* padding-bottom: 20px; */
+			}
+			h1 {
+				display: flex;
+				margin-top: auto;
+				margin-bottom: auto;
+				margin-left: 20px;
+				padding: 0 0;
+				/* flex: 2; */
 			}
 			footer {
-				border-top: 2px solid var(--border);
-				padding: 10px;
-				padding-left: calc(5dvw + 20px);
-				color: var(--light-text);
-				font-size: 0.9rem;
+				padding-left: 3dvw;
 			}
-			footer a {
-				text-decoration: none;
-				color: var(--pink);
-			}
-			footer a:hover {
-				color: #ab565a;
-			}
-			.footer {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-			}
-			dt {
-				font-weight: bold;
-			}
-			dd {
-				margin-left: 20px;
-				margin-top: 5px;
-			}
-			.feedback {
-				margin-top: 16px;
-			}
-			.feedback p {
-				padding-top: 0;
-			}
-			@media (max-width: 768px) {
-				aside {
-					top: 6rem;
-					left: 0;
-					width: 60%;
-					/* max-width: 320px; */
-					height: 80dvh;
-					/* padding: 60px 20px 20px; */
-					background: var(--bg);
-					transform: translateX(-110%);
-					transition: transform 0.3s ease;
-					z-index: 300;
-					border-radius: 8px;
-					box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-				}
-				aside.active {
-					transform: translateX(0);
-					transition: transform 0.3s ease;
-				}
-				.closebtn {
-					display: block;
-					position: absolute;
-					top: 10px;
-					right: 15px;
-					font-size: 1.5em;
-					color: var(--light-text);
-					border: none;
-					background: none;
-					cursor: pointer;
-				}
-				main {
-					display: block;
-					margin-left: 0;
-					margin-right: 0;
-				}
-				body.sidebar-open .main-page {
-					filter: blur(4px);
-					pointer-events: none;
-					z-index: auto;
-				}
-				.opt-info {
-					display: block;
-				}
-				header {	
-					display: flex;
-					flex-direction: row;
-					gap: 10px;
-				}
-				.hamburger {
-					display: flex;
-					height: auto;
-					margin-top: auto;
-					margin-bottom: auto;
-					margin-left: 0.5em;
-					/* padding-bottom: 20px; */
-				}
-				h1 {
-					display: flex;
-					margin-top: auto;
-					margin-bottom: auto;
-					margin-left: 20px;
-					padding: 0 0;
-					/* flex: 2; */
-				}
-				footer {
-					padding-left: 3dvw;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<header>
-			<span class="hamburger" id="hamburger" style="color:#202124;font-size:30px;cursor:pointer" onclick="openSidebar()">&#9776;</span>
-			<h1 style="cursor:pointer" onclick="scrollToTop()">yf com</h1>
-		</header>
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<span class="hamburger" id="hamburger" style="color:#202124;font-size:30px;cursor:pointer" onclick="openSidebar()">&#9776;</span>
+		<h1 style="cursor:pointer" onclick="scrollToTop()">yf com</h1>
+	</header>
 
-		<main>
-			<aside class="sidebar" id="sidebar">
-				<button class="closebtn" onclick="closeSidebar()" aria-label="Close sidebar">&times;</button>
-				<ul>
-					<li><a href="#notice" onclick="closeSidebar()">Notice</a></li>
-					<li>
-						<a href="#options" onclick="closeSidebar()">Options</a>
-						<ul>
-							<li><a href="#opt1" onclick="closeSidebar()">opt1</a></li>
-							<li><a href="#opt2" onclick="closeSidebar()">opt2</a></li>
-						</ul>
-					</li>
-				</ul>
-			</aside>	
-
-			<div class="main-page">
-				<div class="info" id="cm-desc">
-					<p>test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text
-					<br>another line another line another line another line another line another line</p>
-				</div>
-
-				<h2 id="notice">Notice</h2>
-				<div class="info" id="notice">
-					<p>notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice</p>
+	<main>
+		<aside class="sidebar" id="sidebar">
+			<button class="closebtn" onclick="closeSidebar()" aria-label="Close sidebar">&times;</button>
+			<ul>
+				<li><a href="#notice" onclick="closeSidebar()">Notice</a></li>
+				<li>
+					<a href="#options" onclick="closeSidebar()">Options</a>
 					<ul>
-						<li>bullet 1</li>
-						<li>bullet 2</li>
-						<li>bullet 3</li>
+						<li><a href="#opt1" onclick="closeSidebar()">opt1</a></li>
+						<li><a href="#opt2" onclick="closeSidebar()">opt2</a></li>
 					</ul>
-				</div>
+				</li>
+			</ul>
+		</aside>	
 
-				<h2 id="options">Options</h2>
+		<div class="main-page">
+			<div class="info" id="cm-desc">
+				<p>test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text test text
+				<br>another line another line another line another line another line another line</p>
+			</div>
 
-				<h3 id="opt1">Option 1</h3>
-				<div class="info">
-					<div class="opt-info" id="opt1">
-						<div class="sample-img">
-							<img src="https://img.icons8.com/?size=100&id=6O6a10tBc9qW&format=png&color=000000" alt="example image">
-						</div>
-						<div>
-							<h3>1200</h3>
-							<p>description description description description description description description description description description description description description</p>
-							<div class="code">
-								<button class="copy-btn" id="opt1-btn" onclick="copyToClipboard('opt1-code', 'opt1-btn')">copy</button>
-								<pre>
-									<code id="opt1-code">
-										<span>oc:</span>
-										<span>tags:</span>
-										<span>style:</span>
-									</code>									
-								</pre>
-							</div>
-						</div>
+			<h2 id="notice">Notice</h2>
+			<div class="info" id="notice">
+				<p>notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice notice</p>
+				<ul>
+					<li>bullet 1</li>
+					<li>bullet 2</li>
+					<li>bullet 3</li>
+				</ul>
+			</div>
+
+			<h2 id="options">Options</h2>
+
+			<h3 id="opt1">Option 1</h3>
+			<div class="info">
+				<div class="opt-info" id="opt1">
+					<div class="sample-img">
+						<img src="https://img.icons8.com/?size=100&id=6O6a10tBc9qW&format=png&color=000000" alt="example image">
+					</div>
+					<!-- <p>1200</p> -->
+					<div class="mark-div">
+						<span class="mark">&#35;surprise</span><span class="mark">&#35;colthes</span>
+					</div>
+					<p>description description description description description description description description description description description description description</p>
+					<div class="code-div">
+						<button class="copy-btn" id="opt1-btn" onclick="copyToClipboard('opt1-code', 'opt1-btn')" title="複製表單">copy</button>
+						<pre>
+							<code id="opt1-code">
+								<span>oc:</span>
+								<span>tags:</span>
+								<span>style:</span>
+							</code>
+						</pre>
 					</div>
 				</div>
+			</div>
 
-				<h3 id="opt2">Option 2</h3>
-				<div class="info">
-					<div class="opt-info" id="opt2">
-						<div class="sample-img">
-							<img src="https://img.icons8.com/?size=100&id=6O6a10tBc9qW&format=png&color=000000" alt="example image">
-						</div>
-						<div>
-							<p>description description description description description description description description description description description description description</p>
-							<div class="quote">
-								additional quote content i dont know what to write in this section.
-							</div>
+			<h3 id="opt2">Option 2</h3>
+			<div class="info">
+				<div class="opt-info" id="opt2">
+					<div class="sample-img">
+						<ul>
+							<li><img src="https://img.icons8.com/?size=100&id=6O6a10tBc9qW&format=png&color=000000" alt="example image"></li>
+							<li><img src="https://img.icons8.com/?size=100&id=6O6a10tBc9qW&format=png&color=000000" alt="example image"></li>
+							<li><img src="https://img.icons8.com/?size=100&id=6O6a10tBc9qW&format=png&color=000000" alt="example image"></li>
+							<li><img src="https://img.icons8.com/?size=100&id=6O6a10tBc9qW&format=png&color=000000" alt="example image"></li>
+						</ul>						
+					</div>
+					<div>
+						<p>description description description description description description description description description description description description description</p>
+						<div class="quote">
+							additional quote content i dont know what to write in this section.
 						</div>
 					</div>
 				</div>
 			</div>
-		</main>
-		<footer>
-			<div class="footer">
-				<div class="contact">
-					<dl>
-						<dt>contact info</dt>
-						<dd>p: <a href="https://plurk.com" target="_blank">ppp</a></dd>
-						<dd>mail: <a href="mailto:example@example.com" target="_blank">email address</a></dd>
-					</dl>
-				</div>
-				<div class="feedback">
-					<p>Help me improve this page ( •̀ ω •́ )✧</p>
-				</div>
+		</div>
+	</main>
+	<footer>
+		<div class="footer">
+			<div class="contact">
+				<dl>
+					<dt>contact info</dt>
+					<dd>p: <a href="https://plurk.com" target="_blank">ppp</a></dd>
+					<dd>mail: <a href="mailto:example@example.com" target="_blank">email address</a></dd>
+				</dl>
 			</div>
-		</footer>		
-		<script>
-			const sidebar = document.getElementById("sidebar");
-			const hamburger = document.getElementById("hamburger");
+			<div class="feedback">
+				<p>Help me improve this page ( •̀ ω •́ )✧</p>
+			</div>
+		</div>
+	</footer>		
+	<script>
+		const sidebar = document.getElementById("sidebar");
+		const hamburger = document.getElementById("hamburger");
 
-			function openSidebar() {
-				const isActive = hamburger.classList.toggle("active");
-				if(isActive) {
-					hamburger.classList.add("active");
-					sidebar.classList.add("active");
-					document.body.classList.add("sidebar-open");
-				}
-				else {
-					closeSidebar();
-				}
+		function openSidebar() {
+			const isActive = hamburger.classList.toggle("active");
+			if(isActive) {
+				hamburger.classList.add("active");
+				sidebar.classList.add("active");
+				document.body.classList.add("sidebar-open");
 			}
-
-			function scrollToTop() {
-				document.documentElement.scrollTop = 0;
+			else {
 				closeSidebar();
 			}
+		}
 
-			function closeSidebar() {
-				hamburger.classList.remove("active");
-				sidebar.classList.remove("active");
-            	document.body.classList.remove("sidebar-open");
-			}
+		function scrollToTop() {
+			document.documentElement.scrollTop = 0;
+			closeSidebar();
+		}
 
-			function copyToClipboard(codeId, btnId) {
-				var copyText = document.getElementById(codeId).textContent;
-				const btn = document.getElementById(btnId);
-				navigator.clipboard.writeText(copyText);
-				btn.textContent = "Copied";
-			}
-		</script>
-	</body>
+		function closeSidebar() {
+			hamburger.classList.remove("active");
+			sidebar.classList.remove("active");
+			document.body.classList.remove("sidebar-open");
+		}
+
+		function copyToClipboard(codeId, btnId) {
+			var copyText = document.getElementById(codeId).textContent;
+			const btn = document.getElementById(btnId);
+
+			navigator.clipboard.writeText(copyText);
+			btn.textContent = "Copied";
+		}
+	</script>
+</body>
 </html>
